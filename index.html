@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Hero</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>English Hero</h1>
+    </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Main Exercise</a>
+        <a href="#">Audio</a>
+    </nav>
+    <div class="container">
+        <div class="section" id="audio-exercise">
+            <h2>Audio Exercise</h2>
+            <!-- Embed audio from Google Drive here -->
+            <audio controls>
+                <source src="your-audio-file-url-here" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <input type="text" placeholder="Type your answer here">
+        </div>
+        <div class="section" id="voice-recorder">
+            <h2>Record Your Voice Here</h2>
+            <!-- Embed voice recorder here -->
+            <p>Voice recorder functionality will be added later.</p>
+        </div>
+    </div>
+</body>
+</html>
