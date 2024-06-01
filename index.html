@@ -58,11 +58,8 @@
     <div class="container">
         <div class="section" id="audio-exercise">
             <h2>Audio Exercise</h2>
-            <!-- Embed audio from Google Drive here -->
-            <audio id="audio-file" controls>
-                <source src="https://drive.google.com/uc?export=download&id=1PWew3-G5Hhmav_QViNZf0boNeV9EcmIm" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
+            <!-- Embed audio from Google Drive using iframe -->
+            <iframe src="https://drive.google.com/file/d/1PWew3-G5Hhmav_QViNZf0boNeV9EcmIm/preview" width="300" height="70"></iframe>
             <input type="text" placeholder="Type your answer here">
         </div>
         <div class="section" id="voice-recorder">
@@ -73,24 +70,29 @@
     </div>
 
     <script>
-        const audio = document.getElementById('audio-file');
+        const iframe = document.querySelector('iframe');
         let startTime;
         let endTime;
-
-        audio.addEventListener('play', () => {
-            startTime = new Date();
-        });
-
-        audio.addEventListener('pause', () => {
-            if (!audio.ended) {
-                endTime = new Date();
-                logListeningTime();
+        
+        iframe.addEventListener('load', () => {
+            const audioElement = iframe.contentWindow.document.querySelector('audio');
+            if (audioElement) {
+                audioElement.addEventListener('play', () => {
+                    startTime = new Date();
+                });
+                
+                audioElement.addEventListener('pause', () => {
+                    if (!audioElement.ended) {
+                        endTime = new Date();
+                        logListeningTime();
+                    }
+                });
+                
+                audioElement.addEventListener('ended', () => {
+                    endTime = new Date();
+                    logListeningTime();
+                });
             }
-        });
-
-        audio.addEventListener('ended', () => {
-            endTime = new Date();
-            logListeningTime();
         });
 
         function logListeningTime() {
