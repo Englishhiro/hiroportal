@@ -57,10 +57,10 @@
     </nav>
     <div class="container">
         <div class="section" id="audio-exercise">
-            <h2>Audio Exercise</h2>
+            <h2>Exercise 1: Audio Exercise</h2>
             <!-- Embed audio from Google Drive here -->
-            <audio controls>
-                <source src="your-audio-file-url-here" type="audio/mpeg">
+            <audio id="audio-file" controls>
+                <source src="https://drive.google.com/uc?export=download&id=1PWew3-G5Hhmav_QViNZf0boNeV9EcmIm" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
             <input type="text" placeholder="Type your answer here">
@@ -71,5 +71,50 @@
             <p>Voice recorder functionality will be added later.</p>
         </div>
     </div>
+
+    <script>
+        const audio = document.getElementById('audio-file');
+        let startTime;
+        let endTime;
+
+        audio.addEventListener('play', () => {
+            startTime = new Date();
+        });
+
+        audio.addEventListener('pause', () => {
+            if (!audio.ended) {
+                endTime = new Date();
+                logListeningTime();
+            }
+        });
+
+        audio.addEventListener('ended', () => {
+            endTime = new Date();
+            logListeningTime();
+        });
+
+        function logListeningTime() {
+            const timeSpent = (endTime - startTime) / 1000; // time in seconds
+            const data = {
+                time: timeSpent,
+                timestamp: new Date().toISOString()
+            };
+
+            fetch('YOUR_GOOGLE_SHEET_SCRIPT_URL', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
 </html>
