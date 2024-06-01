@@ -58,8 +58,8 @@
     <div class="container">
         <div class="section" id="audio-exercise">
             <h2>Audio Exercise</h2>
-            <!-- Embed audio from Google Drive using iframe -->
-            <iframe src="https://drive.google.com/file/d/1PWew3-G5Hhmav_QViNZf0boNeV9EcmIm/preview" width="300" height="70"></iframe>
+            <!-- Embed audio from Google  using iframe -->
+            <iframe src="https://script.google.com/macros/s/AKfycbzKUzJlnJKXqTLiR0ODJ-h1BAYnJEOeDgjxLXc9MUwop9GitgpUwBWx5RaYLHxDzGNmdg/exec"></iframe>
             <input type="text" placeholder="Type your answer here">
         </div>
         <div class="section" id="voice-recorder">
@@ -69,54 +69,4 @@
         </div>
     </div>
 
-    <script>
-        const iframe = document.querySelector('iframe');
-        let startTime;
-        let endTime;
-        
-        iframe.addEventListener('load', () => {
-            const audioElement = iframe.contentWindow.document.querySelector('audio');
-            if (audioElement) {
-                audioElement.addEventListener('play', () => {
-                    startTime = new Date();
-                });
-                
-                audioElement.addEventListener('pause', () => {
-                    if (!audioElement.ended) {
-                        endTime = new Date();
-                        logListeningTime();
-                    }
-                });
-                
-                audioElement.addEventListener('ended', () => {
-                    endTime = new Date();
-                    logListeningTime();
-                });
-            }
-        });
-
-        function logListeningTime() {
-            const timeSpent = (endTime - startTime) / 1000; // time in seconds
-            const data = {
-                time: timeSpent,
-                timestamp: new Date().toISOString()
-            };
-
-            fetch('YOUR_GOOGLE_SHEET_SCRIPT_URL', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
-    </script>
-</body>
-</html>
+   
