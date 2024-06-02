@@ -6,27 +6,32 @@
     <title>English Hero</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            background-color: #f4f4f9;
+            color: #333;
         }
         header {
             background-color: #4CAF50;
             color: white;
             padding: 20px;
             text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         nav {
             display: flex;
             justify-content: center;
             background-color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         nav a {
             color: white;
             padding: 14px 20px;
             text-decoration: none;
             text-align: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         nav a:hover {
             background-color: #ddd;
@@ -34,15 +39,43 @@
         }
         .container {
             padding: 20px;
+            max-width: 1200px;
+            margin: auto;
         }
         .section {
+            background: white;
             margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section h1 {
+            margin-top: 0;
+            font-size: 24px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            color: #4CAF50;
         }
         input[type="text"] {
             width: 100%;
             padding: 12px;
-            margin: 8px 0;
+            margin: 16px 0;
             box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        iframe {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s ease;
+        }
+        iframe:hover {
+            border-color: #4CAF50;
         }
     </style>
 </head>
@@ -57,15 +90,13 @@
     </nav>
     <div class="container">
         <div class="section" id="audio-exercise">
-            <h2>Audio Exercise</h2>
-            <!-- Embed audio from TrackAudioListenTimeFunction -->
-            <iframe src="https://englishhiro.github.io/TrackAudioListenTimeFunction/#" style="width: 100%; height: 500px; border: none;"></iframe>
+            <h1>Audio Exercise</h1>
+            <iframe src="https://englishhiro.github.io/TrackAudioListenTimeFunction/#" style="width: 100%; height: 300px;"></iframe>
             <input type="text" placeholder="Type your answer here">
         </div>
         <div class="section" id="voice-recorder">
-            <h2>Record Your Voice Here</h2>
-            <!-- Embed voice recorder here -->
-            <p>Voice recorder functionality will be added later.</p>
+            <h1>Record Your Voice Here</h1>
+            <iframe src="https://englishhiro.github.io/RecordingTTSFunction/#" style="width: 100%; height: 300px;"></iframe>
         </div>
     </div>
 </body>
