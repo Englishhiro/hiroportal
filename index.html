@@ -77,6 +77,32 @@
         iframe:hover {
             border-color: #4CAF50;
         }
+        .button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px #999;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 2px #666;
+            transform: translateY(2px);
+        }
     </style>
 </head>
 <body>
@@ -96,11 +122,8 @@
         </div>
         <div class="section" id="voice-recorder">
             <h1>Record Your Voice Here</h1>
+            <a href="https://your-redirect-url.com" class="button">Click here for officially recording your homework</a>
             <iframe src="https://englishhiro.github.io/RecordingTTSFunction/#" style="width: 100%; height: 300px;"></iframe>
-        </div>
-        <div class="section" id="web-app">
-            <h1>Web App</h1>
-            <iframe src="https://script.google.com/macros/s/AKfycbwLSi0p2HaSK-HZ1HrwcNVeRWySKtqvfORnLD5ur8HTHH21J5nEkjiOBnQef7d4d3okSg/exec" style="width: 100%; height: 600px;"></iframe>
         </div>
     </div>
 </body>
