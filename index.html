@@ -1,147 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Hero</title>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #333;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        nav a {
-            color: white;
-            padding: 14px 20px;
-            text-decoration: none;
-            text-align: center;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        nav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        .container {
-            padding: 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-        .section {
-            background: white;
-            margin-bottom: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .section h1 {
-            margin-top: 0;
-            font-size: 24px;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 10px;
-            color: #4CAF50;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            margin: 16px 0;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            transition: border-color 0.3s ease;
-        }
-        input[type="text"]:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-        iframe {
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            transition: border-color 0.3s ease;
-        }
-        iframe:hover {
-            border-color: #4CAF50;
-        }
-        .button {
-            display: inline-block;
-            padding: 15px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            outline: none;
-            color: #fff;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 4px #999;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            margin-top: 10px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .button:hover {
-            background-color: #45a049;
-        }
-        .button:active {
-            background-color: #3e8e41;
-            box-shadow: 0 2px #666;
-            transform: translateY(2px);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic HTML Loading</title>
 </head>
 <body>
-    <header>
-        <h1>English Hero</h1>
-    </header>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Main Exercise</a>
-        <a href="#">Audio</a>
-    </nav>
-    <div class="container">
-        <div class="section" id="audio-exercise">
-            <h1>Audio Exercise</h1>
-            <iframe src="https://englishhiro.github.io/TrackAudioListenTimeFunction/#" style="width: 100%; height: 300px;"></iframe>
-            <input type="text" placeholder="Type your answer here">
-        </div>
-		
-		
-		<div class="section" id="voice-recorder">
-            <h1></h1>
-          
-         <iframe src="https://englishhiro.github.io/Dictation/#" style="width: 100%; height: 300px;"></iframe>
-
-
-		 
-        </div>
-		
-		
-        <div class="section" id="voice-recorder">
-            <h1>Record Your Voice Here</h1>
-          
-         <iframe src="https://englishhiro.github.io/TTStrialrecord_mobile/#" style="width: 100%; height: 300px;"></iframe>
-		 <a href="https://script.google.com/macros/s/AKfycbzVd_VM-oFQKf4-Fg1FvU5byyouthW3GKYmeivz0wrRES7N9pb7yOFjTc5s6mjT9H-0gg/exec">
-    <button>Click here for officially recording your homework</button>
-
-		 
-        </div>
-    </div>
+  <div id="content"></div>
+  <script>
+    fetch('https://script.google.com/macros/s/AKfycbyn7MSVCqnIWEpUfxlQqyquQdwyJe2t-SSsefGv6hdXfcyiLhfxEIwJdBlgt53jHowSSg/exec')
+      .then(response => response.text())
+      .then(data => {
+        const contentDiv = document.getElementById('content');
+        contentDiv.innerHTML = data;
+        
+        // Re-insert the script tags to ensure they execute
+        const scripts = contentDiv.getElementsByTagName('script');
+        for (let i = 0; i < scripts.length; i++) {
+          const scriptTag = document.createElement('script');
+          scriptTag.text = scripts[i].innerText;
+          document.head.appendChild(scriptTag);
+        }
+      })
+      .catch(error => console.error('Error loading HTML:', error));
+  </script>
 </body>
 </html>
-#
