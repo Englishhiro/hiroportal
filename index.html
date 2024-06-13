@@ -61,7 +61,7 @@
       width: 100%;
       background: white;
       margin-bottom: 20px;
-      padding: 10px;
+      padding: 0px;
       border-radius: 5px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       box-sizing: border-box;
@@ -81,15 +81,15 @@
     }
 
     .section h1 img.icon {
-      width: 200px; /* Smaller size for the clip images */
-      height: 150px; /* Smaller size for the clip images */
+      width: 130px; /* Smaller size for the clip images */
+      height: 100px; /* Smaller size for the clip images */
       margin-left: 0; /* No margin to align it to the left */
     }
 
     .section h1 img.note {
-      width: 50px; /* Bigger size for the note image */
-      height: 50px; /* Bigger size for the note image */
-      margin-left: 200px; /* Center it slightly */
+      width: 30px; /* Bigger size for the note image */
+      height: 30px; /* Bigger size for the note image */
+      margin-left: 100px; /* Center it slightly */
     }
 
     .content {
@@ -197,22 +197,24 @@
     </div>
   </div>
   <script>
-    function toggleSection(id) {
-      var section = document.getElementById(id);
-      var content = section.querySelector('.content');
-      var arrow = section.querySelector('.arrow');
+function toggleSection(id) {
+  var section = document.getElementById(id);
+  var content = section.querySelector('.content');
+  var arrow = section.querySelector('.arrow');
 
-      if (content.style.display === 'none' || content.style.display === '') {
-        document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
-        document.querySelectorAll('.arrow').forEach(a => a.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG");
+  if (content.style.display === 'none' || content.style.display === '') {
+    document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
+    document.querySelectorAll('.arrow').forEach(a => a.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG");
 
-        content.style.display = 'block';
-        arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/open.PNG";
-      } else {
-        content.style.display = 'none';
-        arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG";
-      }
-    }
+    content.style.display = 'block';
+    arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/open.PNG";
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    content.style.display = 'none';
+    arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG";
+  }
+}
+
   </script>
 </body>
 
