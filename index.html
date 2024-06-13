@@ -58,8 +58,6 @@
 
     .section {
       width: 100%;
-      height: calc(100vh - 144px);
-      /* Adjust height according to the header and nav height */
       background: white;
       margin-bottom: 20px;
       padding: 10px;
@@ -75,6 +73,12 @@
       padding: 3px;
       padding-bottom: 10px;
       color: #4CAF50;
+      cursor: pointer;
+    }
+
+    .content {
+      display: none;
+      height: calc(100vh - 144px);
     }
 
     input[type="text"] {
@@ -94,8 +98,7 @@
 
     iframe {
       width: 100%;
-      height: calc(100% - 72px);
-      /* Adjust height according to the padding and margins */
+      height: 100%;
       border-radius: 8px;
       border: 1px solid #ccc;
       transition: border-color 0.3s ease;
@@ -147,22 +150,46 @@
   </nav>
   <div class="container">
     <div class="section" id="audio-exercise">
-      <h1>Audio Exercise</h1>
-      <iframe src="https://englishhiro.github.io/TrackAudioListenTimeFunction/#"></iframe>
+      <h1 onclick="toggleSection('audio-exercise')">Audio Exercise</h1>
+      <div class="content">
+        <iframe src="https://englishhiro.github.io/TrackAudioListenTimeFunction/#"></iframe>
+      </div>
     </div>
 
     <div class="section" id="dictation">
-      <h1>Dictation Exercise</h1>
-      <iframe src="https://englishhiro.github.io/Dictation/#"></iframe>
+      <h1 onclick="toggleSection('dictation')">Dictation Exercise</h1>
+      <div class="content">
+        <iframe src="https://englishhiro.github.io/Dictation/#"></iframe>
+      </div>
     </div>
 
     <div class="section" id="voice-recorder">
-      <h1>Record Your Voice Here</h1>
-      <iframe src="https://englishhiro.github.io/TTStrialrecord_mobile/#"></iframe>
-      <a href="https://script.google.com/macros/s/AKfycbzVd_VM-oFQKf4-Fg1FvU5byyouthW3GKYmeivz0wrRES7N9pb7yOFjTc5s6mjT9H-0gg/exec"
-        class="button">Click here for officially recording your homework</a>
+      <h1 onclick="toggleSection('voice-recorder')">Record Your Voice Here</h1>
+      <div class="content">
+        <iframe src="https://englishhiro.github.io/TTStrialrecord_mobile/#"></iframe>
+        <a href="https://script.google.com/macros/s/AKfycbzVd_VM-oFQKf4-Fg1FvU5byyouthW3GKYmeivz0wrRES7N9pb7yOFjTc5s6mjT9H-0gg/exec"
+          class="button">Click here for officially recording your homework</a>
+      </div>
     </div>
   </div>
+  <script>
+    function toggleSection(id) {
+      var section = document.getElementById(id);
+      var content = section.querySelector('.content');
+      var isHidden = content.style.display === 'none';
+      document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
+      document.querySelectorAll('.section').forEach(s => s.style.height = 'auto');
+      
+      if (isHidden) {
+        content.style.display = 'block';
+        section.style.height = 'calc(100vh - 144px)';
+      }
+    }
+
+    // Initially show the content of each section
+    document.querySelectorAll('.content').forEach(content => content.style.display = 'block');
+    document.querySelectorAll('.section').forEach(section => section.style.height = 'calc(100vh - 144px)');
+  </script>
 </body>
 
 </html>
