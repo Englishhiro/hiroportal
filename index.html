@@ -54,6 +54,7 @@
     .container {
       width: 100%;
       flex: 1;
+      padding-top: 20px; /* Added space between the menu and the first section */
     }
 
     .section {
@@ -69,37 +70,31 @@
     .section h1 {
       margin-top: 0;
       font-size: 24px;
-      border-bottom: 2px solid #4CAF50;
+      text-align: center;
       padding: 3px;
       padding-bottom: 10px;
       color: #4CAF50;
       cursor: pointer;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+    }
+
+    .section h1 img.icon {
+      width: 200px; /* Smaller size for the clip images */
+      height: 150px; /* Smaller size for the clip images */
+      margin-left: 0; /* No margin to align it to the left */
+    }
+
+    .section h1 img.note {
+      width: 50px; /* Bigger size for the note image */
+      height: 50px; /* Bigger size for the note image */
+      margin-left: 200px; /* Center it slightly */
     }
 
     .content {
       display: none;
       height: calc(100vh - 144px);
-    }
-
-    .arrow {
-      border: solid #4CAF50;
-      border-width: 0 3px 3px 0;
-      display: inline-block;
-      padding: 5px;
-      transition: transform 0.3s ease;
-    }
-
-    .down {
-      transform: rotate(45deg);
-      -webkit-transform: rotate(45deg);
-    }
-
-    .up {
-      transform: rotate(-135deg);
-      -webkit-transform: rotate(-135deg);
     }
 
     input[type="text"] {
@@ -171,8 +166,9 @@
   </nav>
   <div class="container">
     <div class="section" id="audio-exercise">
-      <h1 onclick="toggleSection('audio-exercise')">Audio Exercise
-        <i class="arrow down"></i>
+      <h1 onclick="toggleSection('audio-exercise')">
+        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/Listening.PNG" alt="Audio Exercise" class="icon">
+        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG" class="arrow down note" alt="Close">
       </h1>
       <div class="content">
         <iframe src="https://englishhiro.github.io/TrackAudioListenTimeFunction/#"></iframe>
@@ -180,8 +176,9 @@
     </div>
 
     <div class="section" id="dictation">
-      <h1 onclick="toggleSection('dictation')">Dictation Exercise
-        <i class="arrow down"></i>
+      <h1 onclick="toggleSection('dictation')">
+        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/speaking.PNG" alt="Dictation Exercise" class="icon">
+        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG" class="arrow down note" alt="Close">
       </h1>
       <div class="content">
         <iframe src="https://englishhiro.github.io/Dictation/#"></iframe>
@@ -189,13 +186,13 @@
     </div>
 
     <div class="section" id="voice-recorder">
-      <h1 onclick="toggleSection('voice-recorder')">Record Your Voice Here
-        <i class="arrow down"></i>
+      <h1 onclick="toggleSection('voice-recorder')">
+        Record Your Voice Here
+        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG" class="arrow down note" alt="Close">
       </h1>
       <div class="content">
         <iframe src="https://englishhiro.github.io/TTStrialrecord_mobile/#"></iframe>
-        <a href="https://script.google.com/macros/s/AKfycbzVd_VM-oFQKf4-Fg1FvU5byyouthW3GKYmeivz0wrRES7N9pb7yOFjTc5s6mjT9H-0gg/exec"
-          class="button">Click here for officially recording your homework</a>
+        <a href="https://script.google.com/macros/s/AKfycbzVd_VM-oFQKf4-Fg1FvU5byyouthW3GKYmeivz0wrRES7N9pb7yOFjTc5s6mjT9H-0gg/exec" class="button">Click here for officially recording your homework</a>
       </div>
     </div>
   </div>
@@ -204,22 +201,18 @@
       var section = document.getElementById(id);
       var content = section.querySelector('.content');
       var arrow = section.querySelector('.arrow');
-      var isHidden = content.style.display === 'none';
-      
-      document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
-      document.querySelectorAll('.arrow').forEach(a => a.classList.replace('up', 'down'));
-      document.querySelectorAll('.section').forEach(s => s.style.height = 'auto');
-      
-      if (isHidden) {
+
+      if (content.style.display === 'none' || content.style.display === '') {
+        document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
+        document.querySelectorAll('.arrow').forEach(a => a.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG");
+
         content.style.display = 'block';
-        arrow.classList.replace('down', 'up');
-        section.style.height = 'calc(100vh - 144px)';
+        arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/open.PNG";
+      } else {
+        content.style.display = 'none';
+        arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG";
       }
     }
-
-    // Initially show the content of each section
-    document.querySelectorAll('.content').forEach(content => content.style.display = 'none');
-    document.querySelectorAll('.section').forEach(section => section.style.height = 'auto');
   </script>
 </body>
 
