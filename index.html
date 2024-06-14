@@ -241,13 +241,13 @@ transform: translateY(2px);
     // Show notification if total time is less than 3 hours
     function showNotification() {
       if (Notification.permission === "granted") {
-        if (calculateTotalTime() < 0.02) {
+        if (calculateTotalTime() < 23.5) {
           new Notification("You should study more!");
         }
       } else if (Notification.permission !== "denied") {
         Notification.requestPermission().then(permission => {
           if (permission === "granted") {
-            if (calculateTotalTime() < 0.02) {
+            if (calculateTotalTime() < 23.5) {
               new Notification("You should study more!");
             }
           }
