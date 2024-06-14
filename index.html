@@ -17,153 +17,154 @@
 </head>
 
 
-  <style>
-html,
-body {
-font-family: 'Helvetica Neue', Arial, sans-serif;
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-background-color: #f4f4f9;
-color: #333;
-height: 100%;
-overflow-x: hidden;
-}
+ <style>
+    html,
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f9;
+      color: #333;
+      height: 100%;
+      overflow-x: hidden;
+    }
 
-body {
-display: flex;
-flex-direction: column;
-}
+    body {
+      display: flex;
+      flex-direction: column;
+    }
 
-header {
-background-color: #4CAF50;
-color: white;
-padding: 20px;
-text-align: center;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-nav {
-display: flex;
-justify-content: center;
-background-color: #333;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #333;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-nav a {
-color: white;
-padding: 14px 20px;
-text-decoration: none;
-text-align: center;
-transition: background-color 0.3s ease, color 0.3s ease;
-}
+    nav a {
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-nav a:hover {
-background-color: #ddd;
-color: black;
-}
+    nav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
 
-.container {
-width: 100%;
-flex: 1;
-padding-top: 20px; /* Added space between the menu and the first section */
-}
+    .container {
+      width: 100%;
+      flex: 1;
+      padding-top: 20px; /* Added space between the menu and the first section */
+    }
 
-.section {
-width: 100%;
-background: white;
-margin-bottom: 20px;
-padding: 0px;
-border-radius: 5px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-box-sizing: border-box;
-}
+    .section {
+      width: 100%;
+      background: white;
+      margin-bottom: 20px;
+      padding: 0px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
 
-.section h1 {
-margin-top: 0;
-font-size: 24px;
-text-align: center;
-padding: 3px;
-padding-bottom: 10px;
-color: #4CAF50;
-cursor: pointer;
-display: flex;
-justify-content: center;
-align-items: center;
-}
+    .section h1 {
+      margin-top: 0;
+      font-size: 24px;
+      text-align: center;
+      padding: 3px;
+      padding-bottom: 10px;
+      color: #4CAF50;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-.section h1 img.icon {
-width: 130px; /* Smaller size for the clip images */
-height: 100px; /* Smaller size for the clip images */
-margin-left: 0; /* No margin to align it to the left */
-}
+    .section h1 img.icon {
+      width: 130px; /* Smaller size for the clip images */
+      height: 100px; /* Smaller size for the clip images */
+      margin-left: 0; /* No margin to align it to the left */
+    }
 
-.section h1 img.note {
-width: 30px; /* Bigger size for the note image */
-height: 30px; /* Bigger size for the note image */
-margin-left: 100px; /* Center it slightly */
-}
+    .section h1 img.note {
+      width: 30px; /* Bigger size for the note image */
+      height: 30px; /* Bigger size for the note image */
+      margin-left: 100px; /* Center it slightly */
+    }
 
-.content {
-display: none;
-height: calc(100vh - 144px);
-}
+    .content {
+      display: none;
+      height: calc(100vh - 144px);
+    }
 
-input[type="text"] {
-width: 100%;
-padding: 12px;
-margin: 16px 0;
-box-sizing: border-box;
-border: 1px solid #ccc;
-border-radius: 4px;
-transition: border-color 0.3s ease;
-}
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 16px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color 0.3s ease;
+    }
 
-input[type="text"]:focus {
-border-color: #4CAF50;
-outline: none;
-}
+    input[type="text"]:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
 
-iframe {
-width: 100%;
-height: 100%;
-border-radius: 8px;
-border: 1px solid #ccc;
-transition: border-color 0.3s ease;
-}
+    iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
 
-iframe:hover {
-border-color: #4CAF50;
-}
+    iframe:hover {
+      border-color: #4CAF50;
+    }
 
-.button {
-display: inline-block;
-padding: 15px 25px;
-font-size: 16px;
-cursor: pointer;
-text-align: center;
-text-decoration: none;
-outline: none;
-color: #fff;
-background-color: #4CAF50;
-border: none;
-border-radius: 8px;
-box-shadow: 0 4px #999;
-transition: background-color 0.3s ease, box-shadow 0.3s ease;
-margin-top: 10px;
-width: 100%;
-box-sizing: border-box;
-}
+    .button {
+      display: inline-block;
+      padding: 15px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px #999;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-.button:hover {
-background-color: #45a049;
-}
+    .button:hover {
+      background-color: #45a049;
+    }
 
-.button:active {
-background-color: #3e8e41;
-box-shadow: 0 2px #666;
-transform: translateY(2px);
-}   </style>
+    .button:active {
+      background-color: #3e8e41;
+      box-shadow: 0 2px #666;
+      transform: translateY(2px);
+    }
+  </style>
 </head>
 
 <body>
@@ -198,7 +199,7 @@ transform: translateY(2px);
 
     <div class="section" id="voice-recorder">
       <h1 onclick="toggleSection('voice-recorder')">
-        Record Your Voice Here
+        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/notepin3.PNG" alt="Dictation Exercise" class="icon">
         <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG" class="arrow down note" alt="Close">
       </h1>
       <div class="content">
@@ -208,112 +209,24 @@ transform: translateY(2px);
     </div>
   </div>
   <script>
-    var startTime = {};
-    var totalTime = {};
+function toggleSection(id) {
+  var section = document.getElementById(id);
+  var content = section.querySelector('.content');
+  var arrow = section.querySelector('.arrow');
 
-    // Load existing data from localStorage
-    function loadTimeData() {
-      var data = localStorage.getItem('timeData');
-      if (data) {
-        totalTime = JSON.parse(data);
-      } else {
-        totalTime = {};
-      }
-    }
+  if (content.style.display === 'none' || content.style.display === '') {
+    document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
+    document.querySelectorAll('.arrow').forEach(a => a.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG");
 
-    // Save time data to localStorage
-    function saveTimeData() {
-      localStorage.setItem('timeData', JSON.stringify(totalTime));
-    }
+    content.style.display = 'block';
+    arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/open.PNG";
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    content.style.display = 'none';
+    arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG";
+  }
+}
 
-    // Calculate total time spent in the last 24 hours
-    function calculateTotalTime() {
-      var now = new Date().getTime();
-      var twentyFourHoursAgo = now - 24 * 60 * 60 * 1000;
-      var total = 0;
-
-      for (var id in totalTime) {
-        if (totalTime.hasOwnProperty(id)) {
-          var times = totalTime[id];
-          total += times.reduce((sum, time) => {
-            if (time.start >= twentyFourHoursAgo) {
-              return sum + (time.end - time.start);
-            }
-            return sum;
-          }, 0);
-        }
-      }
-
-      return total / 1000 / 60 / 60; // Convert milliseconds to hours
-    }
-
-    // Show notification if total time is less than 3 hours
-    function showNotification() {
-      if (Notification.permission === "granted") {
-        if (calculateTotalTime() < 23.5) {
-          new Notification("You should study more!");
-        }
-      } else if (Notification.permission !== "denied") {
-        Notification.requestPermission().then(permission => {
-          if (permission === "granted") {
-            if (calculateTotalTime() < 23.5) {
-              new Notification("You should study more!");
-            }
-          }
-        });
-      }
-    }
-
-    function toggleSection(id) {
-      var section = document.getElementById(id);
-      var content = section.querySelector('.content');
-      var arrow = section.querySelector('.arrow');
-
-      if (content.style.display === 'none' || content.style.display === '') {
-        // Close all other sections
-        document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
-        document.querySelectorAll('.arrow').forEach(a => a.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG");
-
-        // Open this section
-        content.style.display = 'block';
-        arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/open.PNG";
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        // Record start time
-        startTime[id] = new Date().getTime();
-      } else {
-        // Close this section
-        content.style.display = 'none';
-        arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG";
-
-        // Calculate and record total time spent
-        var endTime = new Date().getTime();
-        var timeSpent = endTime - startTime[id];
-        if (!totalTime[id]) {
-          totalTime[id] = [];
-        }
-        totalTime[id].push({ start: startTime[id], end: endTime });
-
-        // Save the data
-        saveTimeData();
-
-        // Log the time spent (for debugging purposes)
-        console.log(`Time spent on ${id}: ${timeSpent / 1000} seconds`);
-      }
-    }
-
-    // Load the existing time data
-    loadTimeData();
-
-    // Check and show notification
-    showNotification();
-
-    // Request notification permission on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      if (Notification.permission !== "granted") {
-        Notification.requestPermission();
-      }
-    });
   </script>
 </body>
 
