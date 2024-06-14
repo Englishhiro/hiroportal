@@ -154,7 +154,7 @@ background-color: #45a049;
 background-color: #3e8e41;
 box-shadow: 0 2px #666;
 transform: translateY(2px);
-}  </style>
+}   </style>
 </head>
 
 <body>
@@ -194,8 +194,7 @@ transform: translateY(2px);
       </h1>
       <div class="content">
         <iframe src="https://englishhiro.github.io/TTStrialrecord_mobile/#"></iframe>
-        <a href="https://script.google.com/macros/s/AKfycbzVd_VM-oFQKf4-Fg1FvU5byyouthW3GKYmeivz0wrRES7N9pb7yOFjTc5s6mjT9H-0gg/exec"
-          class="button">Click here for officially recording your homework</a>
+        <a href="https://script.google.com/macros/s/AKfycbzVd_VM-oFQKf4-Fg1FvU5byyouthW3GKYmeivz0wrRES7N9pb7yOFjTc5s6mjT9H-0gg/exec" class="button">Click here for officially recording your homework</a>
       </div>
     </div>
   </div>
@@ -218,43 +217,43 @@ transform: translateY(2px);
       localStorage.setItem('timeData', JSON.stringify(totalTime));
     }
 
-// Calculate total time spent in the last 1 minute
-function calculateTotalTime() {
-  var now = new Date().getTime();
-  var oneMinuteAgo = now - 60 * 1000;
-  var total = 0;
+    // Calculate total time spent in the last 24 hours
+    function calculateTotalTime() {
+      var now = new Date().getTime();
+      var twentyFourHoursAgo = now - 24 * 60 * 60 * 1000;
+      var total = 0;
 
-  for (var id in totalTime) {
-    if (totalTime.hasOwnProperty(id)) {
-      var times = totalTime[id];
-      total += times.reduce((sum, time) => {
-        if (time.start >= oneMinuteAgo) {
-          return sum + (time.end - time.start);
-        }
-        return sum;
-      }, 0);
-    }
-  }
-
-  return total / 1000 / 60; // Convert milliseconds to minutes
-}
-
-// Show notification if total time is less than 1 minute
-function showNotification() {
-  if (Notification.permission === "granted") {
-    if (calculateTotalTime() < 1) {
-      new Notification("You should study more!");
-    }
-  } else if (Notification.permission !== "denied") {
-    Notification.requestPermission().then(permission => {
-      if (permission === "granted") {
-        if (calculateTotalTime() < 1) {
-          new Notification("You should study more!");
+      for (var id in totalTime) {
+        if (totalTime.hasOwnProperty(id)) {
+          var times = totalTime[id];
+          total += times.reduce((sum, time) => {
+            if (time.start >= twentyFourHoursAgo) {
+              return sum + (time.end - time.start);
+            }
+            return sum;
+          }, 0);
         }
       }
-    });
-  }
-}
+
+      return total / 1000 / 60 / 60; // Convert milliseconds to hours
+    }
+
+    // Show notification if total time is less than 3 hours
+    function showNotification() {
+      if (Notification.permission === "granted") {
+        if (calculateTotalTime() < 0.02) {
+          new Notification("You should study more!");
+        }
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            if (calculateTotalTime() < 0.02) {
+              new Notification("You should study more!");
+            }
+          }
+        });
+      }
+    }
 
     function toggleSection(id) {
       var section = document.getElementById(id);
