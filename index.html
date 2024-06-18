@@ -4,20 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hiro</title>
-  <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png?">
-  <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png?">
-  <link rel="icon" type="image/x-icon" sizes="48x48" href="./favicon.ico?">
-
-  <link rel="manifest" href="/manifest.json">
-
-  <link rel="manifest" href="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/manifest.json">
-  <meta name="theme-color" content="#000000">
-  <link rel="icon" href="https://raw.githubusercontent.com/Englishhiro/Englishhirohomework/main/android-chrome-192x192.png" type="image/png" sizes="192x192">
-  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Englishhiro/Englishhirohomework/main/android-chrome-512x512.png" sizes="512x512">
-</head>
-
-
- <style>
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="assets/site.webmanifest">
+  <style>
     html,
     body {
       font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -107,6 +96,7 @@
     .content {
       display: none;
       height: calc(100vh - 144px);
+      height: 100vh; /* Make the iframe take up the full screen height */
     }
 
     input[type="text"] {
@@ -164,9 +154,89 @@
       box-shadow: 0 2px #666;
       transform: translateY(2px);
     }
+
+    /* Modal (background) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(5px);
+      transition: opacity 0.5s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background: linear-gradient(135deg, #d8e8ff, #b0c8f0);
+      margin: auto;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+      color: #2c3e50;
+      font-size: 20px;
+      font-weight: bold;
+      animation: slide-in 0.5s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Fullscreen Button */
+    .fullscreen-btn {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .fullscreen-btn:hover {
+      background-color: #45a049;
+    }
+
+    /* Slide-in Animation */
+    @keyframes slide-in {
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .modal-content {
+        width: 90%;
+        padding: 15px;
+        font-size: 18px;
+      }
+      .fullscreen-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
-
 <body>
   <header>
     <h1>English Hero</h1>
@@ -208,26 +278,56 @@
       </div>
     </div>
   </div>
+
+  <div id="welcomeModal" class="modal">
+    <div class="modal-content">
+      <p id="modalText">Welcome back, warrior!</p>
+      <button class="fullscreen-btn" onclick="closeModalAndFullscreen()">Fight!</button>
+    </div>
+  </div>
+
   <script>
-function toggleSection(id) {
-  var section = document.getElementById(id);
-  var content = section.querySelector('.content');
-  var arrow = section.querySelector('.arrow');
+    function toggleSection(id) {
+      var section = document.getElementById(id);
+      var content = section.querySelector('.content');
+      var arrow = section.querySelector('.arrow');
+      if (content.style.display === 'none' || content.style.display === '') {
+        document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
+        document.querySelectorAll('.arrow').forEach(a => a.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG");
+        content.style.display = 'block';
+        arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/open.PNG";
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        content.style.display = 'none';
+        arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG";
+      }
+    }
 
-  if (content.style.display === 'none' || content.style.display === '') {
-    document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
-    document.querySelectorAll('.arrow').forEach(a => a.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG");
+    document.addEventListener("DOMContentLoaded", function() {
+      const modal = document.getElementById("welcomeModal");
+      modal.style.display = "flex";
+      setTimeout(() => { modal.style.opacity = 1; }, 100);
+    });
 
-    content.style.display = 'block';
-    arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/open.PNG";
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    content.style.display = 'none';
-    arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG";
-  }
-}
+    function enterFullscreen() {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) { // Firefox
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { // IE/Edge
+        elem.msRequestFullscreen();
+      }
+    }
 
+    function closeModalAndFullscreen() {
+      const modal = document.getElementById("welcomeModal");
+      modal.style.opacity = 0;
+      setTimeout(() => { modal.style.display = "none"; }, 500);
+      enterFullscreen();
+    }
   </script>
 </body>
-
 </html>
