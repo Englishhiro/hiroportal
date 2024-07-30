@@ -3,331 +3,1482 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hiro</title>
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="assets/site.webmanifest">
+  <title>Student View</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <style>
-    html,
-    body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      background-color: #f4f4f9;
-      color: #333;
-      height: 100%;
-      overflow-x: hidden;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      background-color: #4CAF50;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: #333;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    nav a {
-      color: white;
-      padding: 14px 20px;
-      text-decoration: none;
-      text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    nav a:hover {
-      background-color: #ddd;
-      color: black;
-    }
-
-    .container {
-      width: 100%;
-      flex: 1;
-      padding-top: 20px; /* Added space between the menu and the first section */
-    }
-
-    .section {
-      width: 100%;
-      background: white;
-      margin-bottom: 20px;
-      padding: 0px;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      box-sizing: border-box;
-    }
-
-    .section h1 {
-      margin-top: 0;
-      font-size: 24px;
-      text-align: center;
-      padding: 3px;
-      padding-bottom: 10px;
-      color: #4CAF50;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .section h1 img.icon {
-      width: 130px; /* Smaller size for the clip images */
-      height: 100px; /* Smaller size for the clip images */
-      margin-left: 0; /* No margin to align it to the left */
-    }
-
-    .section h1 img.note {
-      width: 30px; /* Bigger size for the note image */
-      height: 30px; /* Bigger size for the note image */
-      margin-left: 100px; /* Center it slightly */
-    }
-
-    .content {
-      display: none;
-      height: calc(100vh - 144px);
-      height: 100vh; /* Make the iframe take up the full screen height */
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      margin: 16px 0;
-      box-sizing: border-box;
+     .pageContainer {
+      position: relative;
       border: 1px solid #ccc;
-      border-radius: 4px;
-      transition: border-color 0.3s ease;
-    }
-
-    input[type="text"]:focus {
-      border-color: #4CAF50;
-      outline: none;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      transition: border-color 0.3s ease;
-    }
-
-    iframe:hover {
-      border-color: #4CAF50;
-    }
-
-    .button {
+      margin: 20px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: auto;
+      height: auto;
       display: inline-block;
-      padding: 15px 25px;
-      font-size: 16px;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      outline: none;
-      color: #fff;
-      background-color: #4CAF50;
-      border: none;
-      border-radius: 8px;
-      box-shadow: 0 4px #999;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      margin-top: 10px;
-      width: 100%;
+      vertical-align: top;
+       flex: none !important;
+      flex-basis: auto !important;
+      flex-grow: 0 !important;
+      flex-shrink: 0 !important;
+     
+    }
+    
+    .pdfCanvas {
+      display: none;
+    }
+    
+    .input-box {
+      position: absolute;
+      transform-origin: top left;
+      border: 1px solid red;
+      background-color: rgba(255, 255, 255, 0.3);
       box-sizing: border-box;
     }
-
-    .button:hover {
-      background-color: #45a049;
+    
+    .media-container {
+      position: absolute;
+      z-index: 100;
+      box-sizing: border-box;
     }
-
-    .button:active {
-      background-color: #3e8e41;
-      box-shadow: 0 2px #666;
-      transform: translateY(2px);
+    
+    .time-left {
+      color: purple;
+      font-weight: bold;
     }
-
-    /* Modal (background) */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(5px);
-      transition: opacity 0.5s ease-in-out;
+    
+    .correct-answer {
+      border-color: green;
+      color: green;
+    }
+    
+    .incorrect-answer {
+      border-color: red;
+      color: red;
+    }
+    
+    #content {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .header-container {
+      display: flex;
       justify-content: center;
-    }
-
-    /* Modal Content */
-    .modal-content {
-      background: linear-gradient(135deg, #d8e8ff, #b0c8f0);
-      margin: auto;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-      width: 80%;
-      max-width: 300px;
-      text-align: center;
-      color: #2c3e50;
-      font-size: 20px;
-      font-weight: bold;
-      animation: slide-in 0.5s ease-out;
-      display: flex;
-      flex-direction: column;
       align-items: center;
+      margin-bottom: 20px;
     }
+    
+    .header-container h1 {
+      margin-right: 20px;
+    }
+    
+    .header-container .btn {
+      margin-left: 5px;
+    }
+    
+    #drawingCanvas {
+      pointer-events: none;
+    }
+    
+    #content:hover #drawingCanvas {
+      pointer-events: auto; 
+    }
+     
+    .input-box {
+    border-bottom: 2px solid purple !important; 
+      position: absolute;
+      z-index: 2;
 
-    /* Fullscreen Button */
-    .fullscreen-btn {
-      background-color: #4caf50;
-      color: white;
-      padding: 10px 20px;
-      margin-top: 15px;
-      border: none;
-      border-radius: 25px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+     
     }
+    
+    .row {
+      display: block;
+    }
+    
+    
+ .close-button {
+    position: absolute;
+    top: -3px;
+    right: -1px;
+    background-color: orange;
+    color: white;
+    font-size: 16px;
+    padding: 2px 8px;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+  }
 
-    .fullscreen-btn:hover {
-      background-color: #45a049;
-    }
+    
+    /* zoom instruction */
 
-    /* Slide-in Animation */
-    @keyframes slide-in {
-      from {
-        transform: translateY(-30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
+    
+    .modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
 
-    /* Responsive Design */
-    @media (max-width: 600px) {
-      .modal-content {
-        width: 90%;
-        padding: 15px;
-        font-size: 18px;
-      }
-      .fullscreen-btn {
-        padding: 8px 16px;
-        font-size: 14px;
-      }
-    }
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+strong {
+  font-size: 1.2em;
+}
+
+.instruction-image {
+  margin-top: 20px;
+  width: 50%;
+  max-width: 150px;
+  height: auto;
+}
+.instruction-image {
+  margin-top: 20px;
+  width: 30%;
+  max-width: 200px;
+  height: auto;
+}
+    
+    /* Modal overlay CSS */
+.fullscreen-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000; /* On top of other content */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+}
+
+.fullscreen-modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background: white;
+  text-align: center;
+  border-radius: 10px;
+}
+    
+    /*login */
+    #loginContainer {
+  display: block;
+}
+
+#mainContent {
+  display: none;
+}
   </style>
 </head>
 <body>
-  <header>
-    <h1>English Hero</h1>
-  </header>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Main Exercise</a>
-    <a href="#">Audio</a>
-  </nav>
-  <div class="container">
-    <div class="section" id="audio-exercise">
-      <h1 onclick="toggleSection('audio-exercise')">
-        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/Listening.PNG" alt="Audio Exercise" class="icon">
-        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG" class="arrow down note" alt="Close">
-      </h1>
-      <div class="content">
-        <iframe src="https://englishhiro.github.io/fillinblankaudio/#"></iframe>
-      </div>
-    </div>
+  
+   <!--login -->
 
-    <div class="section" id="dictation">
-      <h1 onclick="toggleSection('dictation')">
-        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/speaking.PNG" alt="Dictation Exercise" class="icon">
-        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG" class="arrow down note" alt="Close">
-      </h1>
-      <div class="content">
-        <iframe src="https://englishhiro.github.io/Dictation/#"></iframe>
-      </div>
-    </div>
-
-    <div class="section" id="voice-recorder">
-      <h1 onclick="toggleSection('voice-recorder')">
-        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/notepin3.PNG" alt="Dictation Exercise" class="icon">
-        <img src="https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG" class="arrow down note" alt="Close">
-      </h1>
-      <div class="content">
-        <iframe src="https://englishhiro.github.io/TTStrialrecord_mobile/#"></iframe>
-        <a href="https://script.google.com/macros/s/AKfycbzVd_VM-oFQKf4-Fg1FvU5byyouthW3GKYmeivz0wrRES7N9pb7yOFjTc5s6mjT9H-0gg/exec" class="button">Click here for officially recording your homework</a>
-      </div>
+     <div id="loginContainer" class="container">
+  <div class="row">
+    <div class="col s12 center-align header-container">
+      <h1 class="blue-text text-darken-2">Login</h1>
     </div>
   </div>
-
-  <div id="welcomeModal" class="modal">
-    <div class="modal-content">
-      <p id="modalText">Welcome back, warrior!</p>
-      <button class="fullscreen-btn" onclick="closeModalAndFullscreen()">Fight!</button>
+  <div class="row">
+    <div class="input-field col s6 offset-s3">
+      <input id="username" type="text" class="validate">
+      <label for="username">Username</label>
     </div>
   </div>
+  <div class="row">
+    <div class="input-field col s6 offset-s3">
+      <input id="password" type="password" class="validate">
+      <label for="password">Password</label>
+    </div>
+  </div>
+  <div class="row center-align">
+    <button id="loginButton" class="btn blue darken-2">Login</button>
+  </div>
+</div>
+  
+  
+        <!-- Hiro Exam Portal -->
+ <div id="mainContent">
+   <div class="container">
+  
 
+    <div class="row">
+      <div class="col s12 center-align header-container">
+        <h1 class="blue-text text-darken-2"><span class="material-icons left">school</span> Hiro Exam Portal</h1>
+       
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="studentname" type="text" class="validate">
+        <label for="studentname">Student Name</label>
+      </div>
+      <div class="input-field col s4">
+        <input id="testid" type="text" class="validate">
+        <label for="testid">Test ID</label>
+      </div>
+      <div class="col s2">
+        <button type="button" class="btn" onclick="loadJSON()">Load</button>
+      </div>
+    </div>
+    <!-- test instruction -->
+<div class="row">
+  <div id="additional-info" class="col s12 card-panel teal lighten-4">    
+    <div style="display: flex; align-items: center;">
+      <div class="preloader-wrapper big active" id="loading-spinner" style="display: none;">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right"> 
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <span id="loading-text" class="flow-text" style="display: none; margin-left: 15px;">Loading...</span>
+    </div>
+    <p id="testTopic" class="flow-text" style="font-weight:bold"></p>
+    <p id="testDuration" class="flow-text"></p>
+    <p id="maxListeningTimes" class="flow-text"></p>
+  </div>
+</div>
+<!-- start sumib explain button -->
+
+    
+     <div class="row center-align">
+      <button id="startTestButton" class="btn blue darken-2" style="display: block; margin: 20px auto;"><i class="material-icons left">play_arrow</i>Start Test</button>
+      <button id="submit" class="btn blue darken-2" style="display: none; margin: 20px auto;"><i class="material-icons left">send</i>Submit Test</button>
+      <button id="explanationbutton" class="btn blue darken-2" style="display: none; margin: 20px auto;"><i class="material-icons left">help_outline</i>Explain wrong answers</button>
+       
+        <button id="zoomOutButton1" class="btn"><i class="material-icons">zoom_out</i></button>
+        <button id="zoomInButton1" class="btn"><i class="material-icons">zoom_in</i></button>
+       <button id="UndoDraw" class="btn"><i class="material-icons">undo</i></button>
+
+    </div>
+     
+     <!-- zoom instruction -->
+     <div id="zoomInstructionModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Use <strong>Ctrl</strong> + <strong>Wheel</strong> to zoom</p>
+    <img src="https://www.digitalcitizen.life/wp-content/uploads/2021/09/browser_zoom-1.png" alt="Ctrl + Wheel" class="instruction-image">
+  </div>
+</div>
+     
+    
+     </div>
+  
+<div id="KeyExplanationDiv" style="position: fixed; top: 50%; right: 20px; transform: translateY(-50%); width: auto; display: none; z-index: 1;">
+    <button id="closeExplanation" class="close-button">x</button> 
+  <br>
+  <textarea id="KeyExplanation" rows="20" cols="80" style="width: 400px; height: 400px; background-color: white;"></textarea>
+  
+  <br>
+  <button id="smallerExplain" class="btn"><i class="material-icons">zoom_out</i></button>
+  <button id="biggerExplain" class="btn"><i class="material-icons">zoom_in</i></button>
+  <button id="decreaseFont" class="btn"><i class="material-icons">text_decrease</i></button>
+  <button id="increaseFont" class="btn"><i class="material-icons">text_increase</i></button>
+</div>
+     
+    <div id="content" class="row" style="display: none;">
+      
+      <canvas id="drawingCanvas" class="drawing-canvas"></canvas>
+
+      
+    </div> 
+ <!-- Modal overlay cheat warning -->
+<div id="fullscreenModal" class="fullscreen-modal">
+  <div class="fullscreen-modal-content">
+    <p>You are not allowed to do that. Next time, it will be counted as cheating. Click the button to go back to the test.</p>
+    <button id="goFullscreenButton">OK</button>
+  </div>
+</div>
+  <!-- Modal overlay fullscreen -->
+<div id="fullscreenModal2" class="fullscreen-modal">
+  <div class="fullscreen-modal-content">
+    <p>If you exit now, your test will be submitted. Are you sure?</p>
+    <button id="stayFullscreenButton"><i class="material-icons left">arrow_back</i>No, go back to full screen</button>
+    <button id="submitTestButton"><i class="material-icons left">check_circle</i>Yes, submit the test</button>
+  </div>
+   </div>
+</div>
+   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
   <script>
-    function toggleSection(id) {
-      var section = document.getElementById(id);
-      var content = section.querySelector('.content');
-      var arrow = section.querySelector('.arrow');
-      if (content.style.display === 'none' || content.style.display === '') {
-        document.querySelectorAll('.content').forEach(c => c.style.display = 'none');
-        document.querySelectorAll('.arrow').forEach(a => a.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG");
-        content.style.display = 'block';
-        arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/open.PNG";
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        content.style.display = 'none';
-        arrow.src = "https://raw.githubusercontent.com/Englishhiro/PictureFolder/main/close.PNG";
+    document.addEventListener('DOMContentLoaded', function() {
+      M.AutoInit();
+    });
+    
+    document.getElementById('startTestButton').addEventListener('click', startTest);
+
+    let containersData = null;
+    let initialDuration = 0;
+    let isFirstSubmit = true;
+    let playCounts = {};
+    let timerInterval;
+    let drawingPaths = [];
+
+
+    //*zoom instruction*
+    document.getElementById("zoomOutButton1").addEventListener("click", function() {
+  displayZoomInstruction();
+});
+
+document.getElementById("zoomInButton1").addEventListener("click", function() {
+  displayZoomInstruction();
+});
+
+document.getElementsByClassName("close")[0].addEventListener("click", function() {
+  closeModal();
+});
+
+window.addEventListener("click", function(event) {
+  if (event.target == document.getElementById("zoomInstructionModal")) {
+    closeModal();
+  }
+});
+
+function displayZoomInstruction() {
+  var modal = document.getElementById("zoomInstructionModal");
+  modal.style.display = "block";
+}
+
+function closeModal() {
+  var modal = document.getElementById("zoomInstructionModal");
+  modal.style.display = "none";
+}
+    // *explanation text area* 
+     const keyExplanation = document.getElementById('KeyExplanation');
+  const smallerExplain = document.getElementById('smallerExplain');
+  const biggerExplain = document.getElementById('biggerExplain');
+  const decreaseFont = document.getElementById('decreaseFont');
+  const increaseFont = document.getElementById('increaseFont');
+
+  function updateTextareaSize(factor) {
+    const currentWidth = keyExplanation.offsetWidth;
+    const currentHeight = keyExplanation.offsetHeight;
+    keyExplanation.style.width = (currentWidth * factor) + 'px';
+    keyExplanation.style.height = (currentHeight * factor) + 'px';
+  }
+
+  function updateFontSize(factor) {
+    const currentFontSize = window.getComputedStyle(keyExplanation, null).getPropertyValue('font-size');
+    const newFontSize = parseFloat(currentFontSize) * factor;
+    keyExplanation.style.fontSize = newFontSize + 'px';
+  }
+
+  smallerExplain.addEventListener('click', () => {
+    updateTextareaSize(0.8);
+  });
+
+  biggerExplain.addEventListener('click', () => {
+    updateTextareaSize(1.2);
+  });
+
+  decreaseFont.addEventListener('click', () => {
+    updateFontSize(0.8);
+  });
+
+   increaseFont.addEventListener('click', () => {
+    updateFontSize(1.2);
+  });
+    //#close button#
+    document.getElementById('closeExplanation').addEventListener('click', function() {
+    document.getElementById('KeyExplanationDiv').style.display = 'none';
+});
+
+   
+
+
+    
+    //*load file*
+    function loadJSON() {
+      
+      
+       const studentName = document.getElementById('studentname').value;
+
+  if (studentName.length < 4) {
+    alert('Please enter your correct full name.');
+    return;
+  }
+
+      
+          if (testInProgress) {
+    handleCheating('Attempted to load a different test');
+    return;
+  }
+      
+      
+      clearInterval(timerInterval);
+      document.getElementById('content').innerHTML = '';
+      document.getElementById('testTopic').textContent = '';
+      document.getElementById('testDuration').textContent = '';
+      document.getElementById('maxListeningTimes').textContent = '';
+      document.getElementById('maxListeningTimes').style.display = 'block';
+      document.getElementById('explanationbutton').style.display = 'none';
+      document.getElementById('KeyExplanationDiv').style.display = 'none';
+      document.getElementById('KeyExplanation').value = '';
+      containersData = null;
+      initialDuration = 0;
+      isFirstSubmit = true;
+      wrongIds.length = 0;
+       // Clear drawing paths and redraw canvas
+  drawingPaths = [];
+      
+    
+      
+      // #loading animation#
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const loadingText = document.getElementById('loading-text');
+        loadingSpinner.style.display = 'block';
+        loadingText.style.display = 'block';
+
+      //load json from url
+      let filename = document.getElementById('testid').value;
+      if (!filename.endsWith('.json.gz')) {
+        filename += '.json.gz';
       }
+      const url = `https://raw.githubusercontent.com/hirostudent05/interactivePdfStorage/main/${filename}`;
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.arrayBuffer();
+        })
+        .then(data => {
+          try {
+            const decompressedData = pako.inflate(new Uint8Array(data), { to: 'string' });
+            const parsedData = JSON.parse(decompressedData);
+            window.data = parsedData;
+
+            if (parsedData) {
+              renderAdditionalInfo(parsedData);
+              containersData = parsedData.containers || [];
+              document.getElementById('content').style.display = 'none';
+              document.getElementById('startTestButton').style.display = 'block';
+              document.getElementById('submit').style.display = 'none';
+
+              const answerKeyString = parsedData.answerKey;
+              const answerKey = {};
+              answerKeyString.split('\n').forEach(line => {
+                const [id, answer] = line.split(': ');
+                if (id && answer) {
+                  answerKey[id.trim()] = answer.trim();
+                }
+              });
+              window.answerKey = answerKey;
+              ListeningLimit = parsedData.maxListeningTimes;
+            } else {
+              console.error('Invalid JSON structure:', parsedData);
+            }
+          } catch (e) {
+            console.error('Error parsing JSON:', e);
+          }
+        })
+        .catch(error => {
+          console.error('Error loading JSON:', error);
+        })
+    .finally(() => {
+      loadingSpinner.style.display = 'none';
+      loadingText.style.display = 'none';
+
+    });
+}
+    //*start test button*
+    
+    function goFullScreen() {
+  ignoreResizeEvent = true; // Set the flag before going full screen
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().then(() => ignoreResizeEvent = false);
+  } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+    document.documentElement.mozRequestFullScreen().then(() => ignoreResizeEvent = false);
+  } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, Opera
+    document.documentElement.webkitRequestFullscreen().then(() => ignoreResizeEvent = false);
+  } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+    document.documentElement.msRequestFullscreen().then(() => ignoreResizeEvent = false);
+  }
+}
+    
+    // * *start test* *
+    function startTest() {
+      
+    logstartData();
+      
+      // Set initial window dimensions and position
+  initialWindowWidth = window.innerWidth;
+  initialWindowHeight = window.innerHeight;
+  initialWindowX = window.screenX;
+  initialWindowY = window.screenY;
+    
+  goFullScreen();
+
+        // Add event listeners for cheating detection
+
+        testInProgress = true; 
+  cheatingDetected = false;
+
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+  window.addEventListener('blur', handleWindowBlur);
+  window.addEventListener('beforeunload', handleBeforeUnload);
+window.addEventListener('resize', handleWindowResizeOrMove);
+
+      
+      
+      
+      document.getElementById('content').style.display = 'block';
+  document.getElementById('startTestButton').style.display = 'none';
+        document.getElementById('submit').style.display = 'block';
+
+  renderContent(containersData);
+  // Start countdown timer only if there is a valid duration
+  if (initialDuration > 0) {
+    let timeLeft = initialDuration;
+    timerInterval = setInterval(() => {
+      timeLeft -= 1;
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        document.getElementById('testDuration').innerHTML = 'Time is up!';
+        gradeTest();
+      } else {
+        document.getElementById('testDuration').innerHTML = `Time left: <span class="time-left">${timeLeft}</span> minutes`;
+      }
+    }, 60000); // 60000 milliseconds = 1 minute
+  }
+      
+    
+      
+}
+    //# full screen#
+    
+document.addEventListener('fullscreenchange', function() {
+  if (!document.fullscreenElement && testInProgress) { 
+    // Show the modal
+    document.getElementById('fullscreenModal2').style.display = 'block';
+  } else {
+    ignoreResizeEvent = true;
+  }
+});
+
+document.getElementById('stayFullscreenButton').addEventListener('click', function() {
+    // Hide the modal
+    document.getElementById('fullscreenModal2').style.display = 'none';
+    // Attempt to go back to full screen
+    enterFullScreen();
+});
+
+document.getElementById('submitTestButton').addEventListener('click', function() {
+    // Submit the test
+    gradeTest();
+    // Hide the modal
+    document.getElementById('fullscreenModal2').style.display = 'none';
+});
+
+
+function enterFullScreen() {
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+        document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+        document.documentElement.msRequestFullscreen();
+    }
+}
+
+    
+     //*render testTopic, Duration, Maxlisten, *
+    function renderAdditionalInfo(data) {
+      if (data.testTopic) {
+        document.getElementById('testTopic').textContent = `Test Topic: ${data.testTopic}`;
+      }
+     if (data.testDuration && data.testDuration > 0) {
+    initialDuration = data.testDuration;
+    document.getElementById('testDuration').innerHTML = `Time left: <span class="time-left">${initialDuration}</span> minutes`;
+  } else {
+    document.getElementById('testDuration').innerHTML = 'No time limit';
+    initialDuration = 0;
+  }
+      
+    if (data.maxListeningTimes && data.maxListeningTimes > 0) {
+  document.getElementById('maxListeningTimes').textContent = `You can only listen to each recording ${data.maxListeningTimes} times`;
+  document.getElementById('maxListeningTimes').style.fontStyle = 'italic';
+} else {
+  document.getElementById('maxListeningTimes').style.display = 'none';
+}
+    }
+        
+    //*draw on pdf*
+    
+
+function createDrawingCanvas(width, height) {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    canvas.className = 'drawing-canvas';
+    return canvas;
+}
+
+
+// Drawing functionality
+
+function enableDrawing(canvas, ctx) {
+  let drawing = false;
+  let currentPath = [];
+
+  ctx.strokeStyle = 'red';  // Set the drawing color to red
+
+  canvas.onmousedown = function(e) {
+    drawing = true;
+    currentPath = [{ x: e.offsetX, y: e.offsetY }];
+    ctx.beginPath();
+    ctx.moveTo(e.offsetX, e.offsetY);
+  };
+
+  canvas.onmousemove = function(e) {
+    if (drawing) {
+      const point = { x: e.offsetX, y: e.offsetY };
+      currentPath.push(point);
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+    }
+  };
+
+  canvas.onmouseup = function() {
+    drawing = false;
+    if (currentPath.length > 0) {
+      drawingPaths.push([...currentPath]);
+    }
+  };
+
+  canvas.onmouseleave = function() {
+    drawing = false;
+  };
+}
+
+
+
+function redrawCanvas() {
+  const canvas = document.querySelector('.drawing-canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
+
+  drawingPaths.forEach(path => {
+    ctx.moveTo(path[0].x, path[0].y);
+    path.forEach(point => {
+      ctx.lineTo(point.x, point.y);
+    });
+  });
+
+  ctx.stroke();
+}
+
+    // *undo draw*
+document.getElementById('UndoDraw').onclick = function() {
+  undoLastDrawing();
+};
+
+document.addEventListener('keydown', function(event) {
+  if (event.ctrlKey && event.key === 'z') {
+    event.preventDefault(); // Prevent the default browser action for Ctrl+Z
+    undoLastDrawing();
+  }
+});
+
+function undoLastDrawing() {
+  if (drawingPaths.length > 0) {
+    drawingPaths.pop();
+    redrawCanvas();
+  }
+}
+    
+//*render backgroundImage*
+    function renderContent(containers) {
+      const content = document.getElementById('content');
+      content.innerHTML = '';
+
+      containers.forEach(containerData => {
+        const container = document.createElement('div');
+        container.className = 'pageContainer';
+
+        container.style.backgroundImage = `url(${containerData.backgroundImage})`;
+
+        const img = new Image();
+        img.src = containerData.backgroundImage;
+        img.className = 'pdfCanvas';
+
+        img.onload = function() {
+          const imgWidth = img.width;
+          const imgHeight = img.height;
+
+          container.style.width = `${imgWidth}px`;
+          container.style.height = `${imgHeight}px`;
+          
+          
+            // Create and append the drawing canvas
+            const drawingCanvas = createDrawingCanvas(imgWidth, imgHeight);
+            container.appendChild(drawingCanvas);
+            const ctx = drawingCanvas.getContext('2d');
+            enableDrawing(drawingCanvas, ctx);
+          
+          
+          // *render input boxes*
+          let inputbox
+          containerData.inputBoxes.forEach(boxData => {
+            const inputBox = document.createElement('input');
+            inputBox.className = 'input-box';
+            inputBox.id = boxData.id; 
+            
+      
+                        // #placeholder take only keypos: eg. 1 instead of 1.1#
+      const placeholderParts = boxData.placeholder.split('.');
+  if (placeholderParts.length === 2 && !isNaN(placeholderParts[0]) && !isNaN(placeholderParts[1])) {
+    inputBox.placeholder = placeholderParts[1];
+  } else {
+    inputBox.placeholder = boxData.placeholder;
+  }
+
+  inputBox.setAttribute('data-attribute', boxData.dataAttribute);
+             
+    // #readonly input boxes#
+        if (boxData.readonly === true) {
+          inputBox.readOnly = true;
+          inputBox.value = boxData.value || ''; // Show the value if it exists
+          inputBox.style.backgroundColor = 'white';
+          inputBox.style.opacity = '1';
+        }
+
+            const position = JSON.parse(boxData.position);
+            const size = boxData.size;
+            const originalLeft = (position.gridX / 100) * imgWidth;
+            const originalTop = (position.gridY / 100) * imgHeight;
+
+            inputBox.style.width = `${size.widthRatio * imgWidth}px`;
+            inputBox.style.height = `${size.heightRatio * imgHeight}px`;
+            inputBox.style.left = `${originalLeft}px`;
+            inputBox.style.top = `${originalTop}px`;
+
+            container.appendChild(inputBox);
+          });
+
+                    // *render media player*
+          containerData.mediaContainers.forEach(mediaData => {
+            const mediaContainer = document.createElement('div');
+            mediaContainer.className = 'media-container';
+            mediaContainer.id = mediaData.id;
+
+            const position = JSON.parse(mediaData.position);
+            const size = mediaData.size;
+            const originalLeft = (position.gridX / 100) * imgWidth;
+            const originalTop = (position.gridY / 100) * imgHeight;
+
+            mediaContainer.style.width = `${size.width * imgWidth}px`;
+            mediaContainer.style.height = `${size.height * imgHeight}px`;
+            mediaContainer.style.left = `${originalLeft}px`;
+            mediaContainer.style.top = `${originalTop}px`;
+
+            const mediaElement = document.createElement(mediaData.fileName.startsWith('audio') ? 'audio' : 'video');
+            mediaElement.controls = true;
+            mediaElement.style.width = '100%';
+            mediaElement.style.height = 'calc(100% - 10px)';
+            mediaElement.src = mediaData.mediaFile;
+
+// *Max listening times*
+            
+   playCounts[mediaData.id] = 0;
+
+// Add event listener for play button
+const addPlayListener = (mediaElement, mediaData) => {
+    mediaElement._playHandler = () => {
+        if (playCounts[mediaData.id] < ListeningLimit) {
+            playCounts[mediaData.id]++;
+            console.log(`Media ID: ${mediaData.id}, Play Count: ${playCounts[mediaData.id]}`);
+            if (playCounts[mediaData.id] >= ListeningLimit) {
+                console.log(`Media ID: ${mediaData.id} has reached the listening limit.`);
+                mediaElement.controls = false;
+            }
+        } else {
+            console.log(`Media ID: ${mediaData.id} play attempt blocked. Listening limit reached.`);
+            mediaElement.pause();
+        }
+    };
+    mediaElement.addEventListener('play', mediaElement._playHandler);
+};
+
+// Adding the listener to mediaElement
+addPlayListener(mediaElement, mediaData);
+            
+            mediaContainer.appendChild(mediaElement);
+            container.appendChild(mediaContainer);
+          });
+
+          container.appendChild(img);
+
+          
+          
+          // Scale input boxes and media containers on window resize
+          const resizeHandler = () => scaleElements(container, imgWidth, imgHeight, containerData.inputBoxes, containerData.mediaContainers);
+          window.addEventListener('resize', resizeHandler);
+          resizeHandler(); // Initial call to set the correct sizes
+        };
+
+        content.appendChild(container);
+      });
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-      const modal = document.getElementById("welcomeModal");
-      modal.style.display = "flex";
-      setTimeout(() => { modal.style.opacity = 1; }, 100);
+    function scaleElements(container, originalImgWidth, originalImgHeight, inputBoxesData, mediaContainersData) {
+      const containerWidth = container.offsetWidth;
+      const containerHeight = container.offsetHeight;
+
+      // Calculate the scale factors
+      const scaleX = containerWidth / originalImgWidth;
+      const scaleY = containerHeight / originalImgHeight;
+
+      inputBoxesData.forEach(boxData => {
+        const inputBox = document.getElementById(boxData.id);
+        if (inputBox) {
+          const position = JSON.parse(boxData.position);
+          const size = boxData.size;
+          const originalLeft = (position.gridX / 100) * originalImgWidth;
+          const originalTop = (position.gridY / 100) * originalImgHeight;
+
+          // Update styles with the scaled dimensions and positions
+          inputBox.style.width = `${size.widthRatio * containerWidth}px`;
+          inputBox.style.height = `${size.heightRatio * containerHeight}px`;
+          inputBox.style.left = `${originalLeft * scaleX}px`;
+          inputBox.style.top = `${originalTop * scaleY}px`;
+        }
+      });
+
+      mediaContainersData.forEach(mediaData => {
+        const mediaContainer = document.getElementById(mediaData.id);
+        if (mediaContainer) {
+          const position = JSON.parse(mediaData.position);
+          const size = mediaData.size;
+          const originalLeft = (position.gridX / 100) * originalImgWidth;
+          const originalTop = (position.gridY / 100) * originalImgHeight;
+
+          // Update styles with the scaled dimensions and positions
+          mediaContainer.style.width = `${size.width * containerWidth}px`;
+          mediaContainer.style.height = `${size.height * containerHeight}px`;
+          mediaContainer.style.left = `${originalLeft * scaleX}px`;
+          mediaContainer.style.top = `${originalTop * scaleY}px`;
+        }
+      });
+    }
+    
+    // **explanation for answer keys**
+document.getElementById('explanationbutton').addEventListener('click', toggleExplanation);
+function toggleExplanation() {
+  const explanationDiv = document.getElementById('KeyExplanationDiv');
+  if (explanationDiv.style.display === 'none' || explanationDiv.style.display === '') {
+    explanationDiv.style.display = 'block';
+    fillExplanation();
+  } else {
+    explanationDiv.style.display = 'none';
+  }
+}
+    
+    
+    
+    
+    
+    
+    
+function fillExplanation() {
+  const explanationTextarea = document.getElementById('KeyExplanation');
+  if (window.data && window.data.explanation) {
+    console.log('Explanation data found:', window.data.explanation);
+
+    // Split the explanation by "Exercise [Exercise position]\n"
+    const segments = window.data.explanation.split(/Exercise\s+\d+\n/).filter(Boolean);
+    console.log('Split segments:', segments);
+
+    const relevantExplanations = [];
+
+    // Loop through each segment
+segments.forEach((segment, index) => {
+  const exercisePosition = index + 1;
+  const segmentWrongIds = wrongIds.filter(id => id.startsWith(`${exercisePosition}.`));
+  const wrongQPositions = segmentWrongIds.map(id => getKeyPosition(id));
+  
+  // Split explanations by "Question [question position]"
+  const explanations = segment.split(/Question\s+\d+/).filter(Boolean);
+  
+  console.log(`Exercise ${exercisePosition}: Split explanations:`, explanations);
+  
+  wrongQPositions.forEach((questionPosition, qIndex) => {
+    const regex = new RegExp(`^Question\\s+${questionPosition}:`, 'i');
+    console.log(`Looking for Question ${questionPosition} in Exercise ${exercisePosition}`);
+
+    // Ensure we match the correct explanation by position
+    if (qIndex < explanations.length) {
+      const explanationText = explanations[qIndex].trim();
+      console.log(`Checking explanation for Question ${questionPosition}: ${explanationText}`);
+      
+      if (regex.test(`Question ${questionPosition}: ${explanationText}`)) {
+        console.log(`Match found for Exercise ${exercisePosition}, Question ${questionPosition}`);
+        const explanation = `Exercise ${exercisePosition}\nQuestion ${questionPosition}: ${explanationText.replace(/^:/, '')}`;
+        relevantExplanations.push(explanation);
+      }
+    } else {
+      console.log(`No explanation found for Question ${questionPosition} in Exercise ${exercisePosition}`);
+    }
+  });
+});
+    console.log('Relevant explanations:', relevantExplanations);
+
+    explanationTextarea.value = relevantExplanations.join('\n\n');
+  } else {
+    console.log('No explanation data found.');
+  }
+}
+
+
+    // *click submit, remove max listening time*
+function resetMediaControls() {
+    document.querySelectorAll('.media-container audio, .media-container video').forEach(mediaElement => {
+        mediaElement.controls = true; // Ensure controls are enabled
+        mediaElement.pause();  // Pause the media if it's playing
+        mediaElement.removeEventListener('play', mediaElement._playHandler); // Remove the play event listener
+        mediaElement._playHandler = () => {}; // Reset the play handler
+        mediaElement.addEventListener('play', mediaElement._playHandler); // Add a dummy play event handler to avoid excessive listeners
     });
 
-    function enterFullscreen() {
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.mozRequestFullScreen) { // Firefox
-        elem.mozRequestFullScreen();
-      } else if (elem.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) { // IE/Edge
-        elem.msRequestFullscreen();
-      }
+    // Reset the play counts
+    for (let mediaId in playCounts) {
+        playCounts[mediaId] = 0;
     }
+}
 
-    function closeModalAndFullscreen() {
-      const modal = document.getElementById("welcomeModal");
-      modal.style.opacity = 0;
-      setTimeout(() => { modal.style.display = "none"; }, 500);
-      enterFullscreen();
+        
+// **grade function**
+    
+document.getElementById('submit').addEventListener('click', gradeTest);
+    let wrongIds = [];
+    let correctAnswers = 0;
+    let totalQuestions = 0;
+    let wrongAnswerPositions = [];
+    
+function getKeyPosition(id) {
+  const match = id.match(/^\d+\.(\d+)$/);
+  return match ? match[1] : id;
+} 
+    
+function gradeTest() { 
+  
+  
+  testInProgress = false;
+  
+  // Remove event listeners
+  document.removeEventListener('visibilitychange', handleVisibilityChange);
+  window.removeEventListener('blur', handleWindowBlur);
+  window.removeEventListener('beforeunload', handleBeforeUnload);
+
+  
+    document.getElementById('explanationbutton').style.display = 'block'; // Show explanation button after grading
+
+  if (!containersData || !window.answerKey) return;
+  clearInterval(timerInterval);
+  const answerKey = window.answerKey;
+
+  let correctAnswers = 0;
+  let wrongAnswers = 0;
+
+
+ containersData.forEach(container => {
+    container.inputBoxes.forEach(box => {
+      const inputBox = document.getElementById(box.id);
+      let userInput = inputBox.value.trim().toLowerCase();
+      let correctAnswer = answerKey[box.id];
+
+      console.log(`Processing box ${box.id}`);
+      console.log(`Placeholder: "${inputBox.placeholder}"`);
+      console.log(`User input: "${userInput}"`);
+      console.log(`Correct answer: "${correctAnswer}"`);
+      
+//  ## Check if the placeholder contains "&" and log ##
+      if (inputBox.placeholder.includes('&')) {
+        console.log(`Box ${box.id} contains & in placeholder`);
+
+        const placeholderParts = inputBox.placeholder.split('&').map(part => part.trim());
+        const userInputParts = userInput.split(/[&,/;]+/).map(part => part.trim().toLowerCase());
+        const answerParts = correctAnswer.split('&').map(part => part.trim().toLowerCase());
+
+        console.log(`Placeholder parts: ${JSON.stringify(placeholderParts)}`);
+        console.log(`User input parts: ${JSON.stringify(userInputParts)}`);
+        console.log(`Answer key parts: ${JSON.stringify(answerParts)}`);
+
+        // Handle empty input
+        if (userInput === '') {
+          console.log('User input is empty. Marking all parts as incorrect.');
+          wrongAnswers += placeholderParts.length;
+          wrongIds.push(...placeholderParts);
+          setAnswerClass(inputBox, false);
+        } else {
+          let matches = 0;
+          let localWrongIds = [];
+          let seenInputs = new Set();
+
+          userInputParts.forEach((userPart, index) => {
+            let isCorrect = false;
+
+            // Check for repeated values
+            if (seenInputs.has(userPart)) {
+              console.log(`Repeated value found: "${userPart}"`);
+              isCorrect = false;
+            } else {
+              seenInputs.add(userPart);
+              if (answerParts.includes(userPart)) {
+                console.log(`Match found: "${userPart}"`);
+                isCorrect = true;
+              } else {
+                console.log(`No match for: "${userPart}"`);
+              }
+            }
+
+            if (isCorrect) {
+              matches++;
+            } else {
+              if (index < placeholderParts.length) {
+                localWrongIds.push(placeholderParts[index]);
+              }
+            }
+          });
+
+          console.log(`Total matches: ${matches}`);
+          correctAnswers += matches;
+          console.log(`Total correct answers so far: ${correctAnswers}`);
+
+          const totalAnswerParts = answerParts.length;
+          console.log(`Total answer parts: ${totalAnswerParts}`);
+
+          wrongAnswers += Math.max(totalAnswerParts - matches, localWrongIds.length);
+          console.log(`Total wrong answers so far: ${wrongAnswers}`);
+
+          if (localWrongIds.length > 0) {
+            const exercisePos = box.id.split('.')[0];
+  const processedWrongIds = localWrongIds.map(wrongId => `${exercisePos}.${wrongId}`);
+  wrongIds.push(...processedWrongIds);
+  console.log(`Added to wrongIds: ${JSON.stringify(processedWrongIds)}`);
+          }
+
+          setAnswerClass(inputBox, matches === totalAnswerParts && localWrongIds.length === 0);
+        }
+      } else {
+        
+        
+        
+        console.log(`Box ${box.id} does not contain & in placeholder`);
+        // Original logic for non-special boxes
+        let isCorrect = false;
+        // Extract optional words () from the correct answer
+        let optionalWords = [];
+        let optionalWordsMatch;
+        const optionalWordsRegex = /\(([^)]+)\)/g;
+        while ((optionalWordsMatch = optionalWordsRegex.exec(correctAnswer)) !== null) {
+          optionalWords.push(...optionalWordsMatch[1].split('/').map(word => word.trim().toLowerCase()));
+        }
+        correctAnswer = correctAnswer.replace(/\(([^)]+)\)/g, '').trim();
+
+      let userInputParts = userInput.split(/[\;&]+/).filter(word => !optionalWords.includes(word));
+
+        // Check if the answer key contains "/"
+        if (correctAnswer.includes('/')) {
+          const possibleAnswers = correctAnswer.split('/').map(answer => answer.trim().toLowerCase());
+          if (possibleAnswers.includes(userInputParts.join(' '))) {
+            isCorrect = true;
+          }
+        } 
+        
+        
+         // Check if the answer key contains "&"
+     else if (correctAnswer.includes('&')) {
+  const essentialParts = correctAnswer.split('&').map(part => part.trim().toLowerCase());
+  console.log(`Essential parts: ${JSON.stringify(essentialParts)}`);
+
+  const allEssentialPartsIncluded = essentialParts.every(part => 
+    userInputParts.some(userPart => userPart.trim() === part)
+  );
+
+  const noExtraneousParts = userInputParts.every(userPart => 
+    essentialParts.includes(userPart.trim())
+  );
+
+  console.log(`All essential parts included: ${allEssentialPartsIncluded}`);
+  console.log(`No extraneous parts: ${noExtraneousParts}`);
+
+  if (allEssentialPartsIncluded && noExtraneousParts) {
+    isCorrect = true;
+  }
+}
+        // Default case-insensitive check
+        else {
+          if (userInputParts.join(' ') === correctAnswer.toLowerCase()) {
+            isCorrect = true;
+          }
+        }
+
+        if (isCorrect) {
+          correctAnswers += 1;
+          setAnswerClass(inputBox, true);
+        } else {
+          wrongAnswers += 1;
+          wrongIds.push(box.id);
+          setAnswerClass(inputBox, false);
+        }
+      }
+    });
+  });
+
+  console.log(`Final correct answers: ${correctAnswers}`);
+  console.log(`Final wrong answers: ${wrongAnswers}`);
+  console.log(`Wrong IDs: ${JSON.stringify(wrongIds)}`);
+
+// # mark green as correct, red as wrong #
+  function setAnswerClass(element, isCorrect) {
+    element.classList.remove('correct-answer', 'incorrect-answer'); 
+    if (isCorrect) {
+      element.classList.add('correct-answer');
+    } else {
+      element.classList.add('incorrect-answer');  
     }
+  }
+
+
+  const totalQuestions = correctAnswers + wrongAnswers; 
+ // Check for unique exercise positions in the wrongIds
+  const exercisePositions = new Set(wrongIds.map(id => id.split('.')[0]));
+  let wrongAnswerPositions = '';
+
+  if (exercisePositions.size > 1) {
+    wrongAnswerPositions = wrongIds.join(', ');
+  } else {
+    wrongAnswerPositions = wrongIds.map(id => getKeyPosition(id)).join(', ');
+  }
+
+  // Calculate the band score
+  let bandScore = 'N/A';
+  if (correctAnswers >= 39) bandScore = '9';
+  else if (correctAnswers >= 37) bandScore = '8.5';
+  else if (correctAnswers >= 35) bandScore = '8';
+  else if (correctAnswers >= 33) bandScore = '7.5';
+  else if (correctAnswers >= 30) bandScore = '7';
+  else if (correctAnswers >= 27) bandScore = '6.5';
+  else if (correctAnswers >= 23) bandScore = '6';
+  else if (correctAnswers >= 20) bandScore = '5.5';
+  else if (correctAnswers >= 16) bandScore = '5';
+  else if (correctAnswers >= 13) bandScore = '4.5';
+  else if (correctAnswers >= 10) bandScore = '4';
+  else if (correctAnswers >= 7) bandScore = '3.5';
+  else if (correctAnswers >= 5) bandScore = '3';
+  else if (correctAnswers >= 3) bandScore = '2.5';
+  else if (correctAnswers <3) bandScore = '2';
+
+const resultText = `Number of correct answers: <span style="color: purple;font-weight:bold">${correctAnswers} / ${totalQuestions}</span><br><br>Your wrong answers:<span style="color: red;font-weight:bold"> ${wrongAnswerPositions}</span>`;
+let finalResultShow = '';
+
+if (isFirstSubmit) {
+  const testTopicText = document.getElementById('testTopic').textContent.toLowerCase();
+  if (testTopicText.includes('ielts reading') || testTopicText.includes('ielts listening')) {
+    finalResultShow = `<br><br><span>${resultText}</span><br><br><span style="font-weight:bold; font-size:23px">Your band score:</span><span style="color:purple;font-weight:bold;font-size:23px"> ${bandScore}</span>`;
+  } else {
+    finalResultShow = `<br><br><span>${resultText}</span><br><br><span style="font-weight:bold;ont-size:16px">Your Test Score:</span><span style="color:purple;font-weight:bold;ont-size:17px"> ${(correctAnswers / totalQuestions * 100).toFixed(0)}%</span>`;
+  }
+  document.getElementById('testDuration').innerHTML += finalResultShow;
+  isFirstSubmit = false;
+} else {
+  alert(`Number of correct answers: ${correctAnswers} / ${totalQuestions}`);
+}
+
+ // #prepare data to ggsheet#
+const data = {
+  studentName: document.getElementById('studentname').value,
+  timestamp: new Date().toISOString(),
+  examId: document.getElementById('testid').value,
+  correctAnswers: correctAnswers,
+  totalQuestions: totalQuestions,
+  mistakes: wrongAnswerPositions,
+};
+
+logCompletionData(data);
+  
+    // Reset media controls
+    resetMediaControls();
+  }  
+    
+    
+
+
+
+//*log to ggsheet*
+function logCompletionData(data) {
+  const urlPost = 'https://script.google.com/macros/s/AKfycbwFhv4wL1saJhIQ2WZuQov7DkPFwcec-YwHa6gGAVZ5mX_2hddOKiUmedU--rczYNLx-A/exec';
+  
+  const date = new Date();
+  const formattedDate = `${date.toLocaleDateString()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+  
+  const postData = {
+    timestamp: formattedDate,
+    studentName: data.studentName,
+    examId: data.examId,
+    correctAnswers: data.correctAnswers,
+    totalQuestions: data.totalQuestions,
+    mistakes: data.mistakes,
+    incident: data.cheatingDetected ? 'Cheating detected' : 'Finish test',
+    reason: data.reason || '',
+    skey: sessionKey
+  };
+
+  fetch(urlPost, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(postData)
+  }).then(response => {
+    console.log('Data logged successfully:', postData);
+  }).catch(error => {
+    console.error('Error logging data:', error);
+  });
+}
+
+    
+    //log start test
+    
+    function logstartData(data) {
+  const urlPost = 'https://script.google.com/macros/s/AKfycbwFhv4wL1saJhIQ2WZuQov7DkPFwcec-YwHa6gGAVZ5mX_2hddOKiUmedU--rczYNLx-A/exec';
+  
+  const date = new Date();
+  const formattedDate = `${date.toLocaleDateString()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+  
+  const postData = {
+    timestamp: formattedDate,
+    studentName: document.getElementById('studentname').value,
+    examId: document.getElementById('testid').value,
+    incident: "Start test",
+    skey: sessionKey
+  };
+
+  fetch(urlPost, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(postData)
+  }).then(response => {
+    console.log('Data logged successfully:', postData);
+  }).catch(error => {
+    console.error('Error logging data:', error);
+  });
+}
+    
+    
+    // #Generate a random unique key for the session#
+function generateSessionKey() {
+    const array = new Uint32Array(4);
+    window.crypto.getRandomValues(array);
+    return array.join('-');
+}
+const sessionKey = generateSessionKey(); 
+    
+    
+    // Prevent Alt+F4
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'F4' && e.altKey && testInProgress) {
+    e.preventDefault();
+    alert('Please do not attempt to close the exam. Use the submit button to finish.');
+  }
+});
+
+ 
+// *cheating*
+ // Global variables to track test state  
+let testInProgress = false;
+let cheatingDetected = false;
+let cheatingCount = 0; 
+let ignoreResizeEvent = false; // Flag to ignore resize events
+   
+// Variables to track initial window size and position
+let initialWindowWidth = window.innerWidth;
+let initialWindowHeight = window.innerHeight;
+let initialWindowX = window.screenX;
+let initialWindowY = window.screenY;
+
+// Anti-cheat functions
+function handleCheating(reason) {
+  if (testInProgress) {
+    cheatingCount++;
+    if (cheatingCount < 1) {
+      document.getElementById('fullscreenModal').style.display = 'block';
+    } else if (cheatingCount >= 1) { 
+      cheatingDetected = true;
+      alert('Cheating detected! The test will be submitted automatically.');
+      console.log('Cheating detected:', reason);
+      
+      const cheatingData = {
+        studentName: document.getElementById('studentname').value,
+        examId: document.getElementById('testid').value,
+        cheatingDetected: true,
+        reason: reason 
+      }; 
+      logCompletionData(cheatingData);
+      gradeTest();
+    }
+  }
+}
+
+function handleVisibilityChange() {
+  if (document.hidden) {
+    handleCheating('Switched to another tab or minimized window');
+  }
+}
+
+let blurTimeout;
+let blurStart;
+
+function handleWindowBlur() {
+  blurStart = Date.now();
+  console.log('Window blurred at:', blurStart);
+  blurTimeout = setTimeout(() => {
+    if (Date.now() - blurStart >= 1000) {
+      console.log('Blur duration exceeded 1 seconds');
+      handleCheating('Switched to another application for more than 2 seconds');
+    } 
+  }, 1000);
+}
+
+function handleWindowFocus() {
+  clearTimeout(blurTimeout);
+  const blurDuration = Date.now() - blurStart;
+  console.log('Window focused at:', Date.now());
+  console.log('Blur duration was:', blurDuration);
+  if (blurDuration < 1000) {
+    console.log('Blur duration was less than 2 seconds');
+    document.getElementById('fullscreenModal').style.display = 'block';
+  }
+}
+
+function handleBeforeUnload(event) {
+  if (testInProgress) {
+    handleCheating('Attempted to close or reload the page');
+    event.returnValue = 'Cheating detected! The test will be submitted automatically.';
+    return event.returnValue;
+  }
+}
+
+function handleWindowResizeOrMove() {
+  if (ignoreResizeEvent) {
+    ignoreResizeEvent = false;
+    return;
+  }
+
+  // Check if window size or position has changed from the initial state
+  if ((window.innerWidth !== initialWindowWidth || window.innerHeight !== initialWindowHeight ||
+      window.screenX !== initialWindowX || window.screenY !== initialWindowY) &&
+      !document.fullscreenElement) {
+    handleCheating('Resized or moved the browser window');
+    
+    // Update the window dimensions and position
+    initialWindowWidth = window.innerWidth;
+    initialWindowHeight = window.innerHeight;
+    initialWindowX = window.screenX;
+    initialWindowY = window.screenY;
+  }
+}
+
+setInterval(function() {
+  handleWindowResizeOrMove();
+}, 2000); // Check every second
+
+// Function to go full screen
+function goFullScreen() {
+  ignoreResizeEvent = true; // Set the flag before going full screen
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().then(() => ignoreResizeEvent = false);
+  } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+    document.documentElement.mozRequestFullScreen().then(() => ignoreResizeEvent = false);
+  } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, Opera
+    document.documentElement.webkitRequestFullscreen().then(() => ignoreResizeEvent = false);
+  } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+    document.documentElement.msRequestFullscreen().then(() => ignoreResizeEvent = false);
+  }
+}
+
+// Event listener for go full screen button
+document.getElementById('goFullscreenButton').addEventListener('click', function() {
+  goFullScreen();
+  document.getElementById('fullscreenModal').style.display = 'none';
+});
+
+window.addEventListener('blur', handleWindowBlur);
+window.addEventListener('focus', handleWindowFocus);
+document.addEventListener('visibilitychange', handleVisibilityChange);
+window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    
+    
+    //login 
+    
+    document.getElementById('loginButton').addEventListener('click', function() {
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    
+    // Basic validation for demonstration purposes
+    if (username === 'admin' && password === '123') {
+      document.getElementById('loginContainer').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    } else {
+      alert('Invalid username or password. Please try again.');
+    }
+  });
   </script>
 </body>
+
 </html>
