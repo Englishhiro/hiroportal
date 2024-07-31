@@ -194,50 +194,10 @@ strong {
   text-align: center;
   border-radius: 10px;
 }
-    
-    /*login */
-    #loginContainer {
-  display: block;
-}
-
-#mainContent {
-  display: none;
-}
   </style>
 </head>
 <body>
-  
-   <!--login -->
-
-     <div id="loginContainer" class="container">
-  <div class="row">
-    <div class="col s12 center-align header-container">
-      <h1 class="blue-text text-darken-2">Login</h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="input-field col s6 offset-s3">
-      <input id="username" type="text" class="validate">
-      <label for="username">Username</label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="input-field col s6 offset-s3">
-      <input id="password" type="password" class="validate">
-      <label for="password">Password</label>
-    </div>
-  </div>
-  <div class="row center-align">
-    <button id="loginButton" class="btn blue darken-2">Login</button>
-  </div>
-</div>
-  
-  
-        <!-- Hiro Exam Portal -->
- <div id="mainContent">
    <div class="container">
-  
-
     <div class="row">
       <div class="col s12 center-align header-container">
         <h1 class="blue-text text-darken-2"><span class="material-icons left">school</span> Hiro Exam Portal</h1>
@@ -329,7 +289,7 @@ strong {
  <!-- Modal overlay cheat warning -->
 <div id="fullscreenModal" class="fullscreen-modal">
   <div class="fullscreen-modal-content">
-    <p>You are not allowed to do that. Next time, it will be counted as cheating. Click the button to go back to the test.</p>
+    <p>You are not allowed to do that. Next time, it will be counted as cheating. Click the button to continue the test.</p>
     <button id="goFullscreenButton">OK</button>
   </div>
 </div>
@@ -340,7 +300,6 @@ strong {
     <button id="stayFullscreenButton"><i class="material-icons left">arrow_back</i>No, go back to full screen</button>
     <button id="submitTestButton"><i class="material-icons left">check_circle</i>Yes, submit the test</button>
   </div>
-   </div>
 </div>
    
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -434,15 +393,6 @@ function closeModal() {
     
     //*load file*
     function loadJSON() {
-      
-      
-       const studentName = document.getElementById('studentname').value;
-
-  if (studentName.length < 4) {
-    alert('Please enter your correct full name.');
-    return;
-  }
-
       
           if (testInProgress) {
     handleCheating('Attempted to load a different test');
@@ -995,7 +945,7 @@ function resetMediaControls() {
     }
 }
 
-        
+    
 // **grade function**
     
 document.getElementById('submit').addEventListener('click', gradeTest);
@@ -1041,7 +991,7 @@ function gradeTest() {
       console.log(`User input: "${userInput}"`);
       console.log(`Correct answer: "${correctAnswer}"`);
       
-//  ## Check if the placeholder contains "&" and log ##
+//  ## Check if the placeholder contains "&"  ##
       if (inputBox.placeholder.includes('&')) {
         console.log(`Box ${box.id} contains & in placeholder`);
 
@@ -1339,17 +1289,20 @@ document.addEventListener('keydown', function(e) {
 
  
 // *cheating*
- // Global variables to track test state  
+    
+// Global variables to track test state  
 let testInProgress = false;
 let cheatingDetected = false;
 let cheatingCount = 0; 
-let ignoreResizeEvent = false; // Flag to ignore resize events
+ 
+    let ignoreResizeEvent = false; // Flag to ignore resize events
    
-// Variables to track initial window size and position
+    // Variables to track initial window size and position
 let initialWindowWidth = window.innerWidth;
 let initialWindowHeight = window.innerHeight;
 let initialWindowX = window.screenX;
 let initialWindowY = window.screenY;
+
 
 // Anti-cheat functions
 function handleCheating(reason) {
@@ -1380,29 +1333,8 @@ function handleVisibilityChange() {
   }
 }
 
-let blurTimeout;
-let blurStart;
-
 function handleWindowBlur() {
-  blurStart = Date.now();
-  console.log('Window blurred at:', blurStart);
-  blurTimeout = setTimeout(() => {
-    if (Date.now() - blurStart >= 1000) {
-      console.log('Blur duration exceeded 1 seconds');
-      handleCheating('Switched to another application for more than 2 seconds');
-    } 
-  }, 1000);
-}
-
-function handleWindowFocus() {
-  clearTimeout(blurTimeout);
-  const blurDuration = Date.now() - blurStart;
-  console.log('Window focused at:', Date.now());
-  console.log('Blur duration was:', blurDuration);
-  if (blurDuration < 1000) {
-    console.log('Blur duration was less than 2 seconds');
-    document.getElementById('fullscreenModal').style.display = 'block';
-  }
+  handleCheating('Switched to another application');
 }
 
 function handleBeforeUnload(event) {
@@ -1411,7 +1343,7 @@ function handleBeforeUnload(event) {
     event.returnValue = 'Cheating detected! The test will be submitted automatically.';
     return event.returnValue;
   }
-}
+} 
 
 function handleWindowResizeOrMove() {
   if (ignoreResizeEvent) {
@@ -1432,8 +1364,7 @@ function handleWindowResizeOrMove() {
     initialWindowY = window.screenY;
   }
 }
-
-setInterval(function() {
+ setInterval(function() {
   handleWindowResizeOrMove();
 }, 2000); // Check every second
 
@@ -1457,27 +1388,7 @@ document.getElementById('goFullscreenButton').addEventListener('click', function
   document.getElementById('fullscreenModal').style.display = 'none';
 });
 
-window.addEventListener('blur', handleWindowBlur);
-window.addEventListener('focus', handleWindowFocus);
-document.addEventListener('visibilitychange', handleVisibilityChange);
-window.addEventListener('beforeunload', handleBeforeUnload);
     
-    
-    
-    //login 
-    
-    document.getElementById('loginButton').addEventListener('click', function() {
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
-    
-    // Basic validation for demonstration purposes
-    if (username === 'admin' && password === '123') {
-      document.getElementById('loginContainer').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
-    } else {
-      alert('Invalid username or password. Please try again.');
-    }
-  });
   </script>
 </body>
 
